@@ -2,7 +2,6 @@ package aplication;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
@@ -34,21 +33,16 @@ public class Program {
 
 			System.out.println("Enter data to update the reservations: ");
 			System.out.println("Chek-in date (DD/MM/YYYY): ");
-			
+
 			in = LocalDate.parse(sc.nextLine(), dtf);
 			System.out.println("Chek-out date (DD/MM/YYYY): ");
 			out = LocalDate.parse(sc.nextLine(), dtf);
 
-			LocalDate now = LocalDate.now();
+			String error = a.updateDates(in, out);
+			if (error != null) {
 
-			if (in.isBefore(now) || out.isBefore(now)) {
-				
-				System.out.println("Error in reservation: Reservations dates for update must be future dates.");
-			} else if (!out.isAfter(in)) {
-				
-				System.out.println("Error in reservation: Chek-out date must be after chek-in date.");
+				System.out.println("Error in reservation: " + error);
 			} else {
-				a.updateDates(in, out);
 
 				System.out.println("Reservation: " + a);
 			}
